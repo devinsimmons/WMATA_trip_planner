@@ -4,6 +4,8 @@ import logo from './logo.svg';
 import './App.css';
 import axios from 'axios';
 
+const API_KEY = '6351dad7ec9d4c4f9f03bab9b5180c38';
+const STATION_URL = 'https://api.wmata.com/Rail.svc/json/jStationInfo[?All]';
 const stations = [
   {
       "Address": {
@@ -504,6 +506,7 @@ class App extends Component {
     super(props);
     this.onSelectOrigin = this.onSelectOrigin.bind(this);
     this.onSelectDestination = this.onSelectDestination.bind(this);
+    this.getStations = this.getStations.bind(this);
   }
 
   state = {
@@ -512,19 +515,34 @@ class App extends Component {
     destinationStation: 'Select...',
   }
 
+  //function to handle user selecting origin station
   onSelectOrigin(event) {
     this.setState({originStation: event.label})
   }
 
+  //function to handle user selecting destination station
   onSelectDestination(event) {
     this.setState({destinationStation: event.label})
+  }
+
+  getStations(search_term, page_number = 0) {
+    const url = `${STATION_URL}?${API_KEY}`
+    console.log(url)
+    fetch(url)
+        .then(response => response.json())
+        
+        .then(result =>
+            console.log(result)
+        )
+        
+        .catch(error => error);
   }
 
   render () {
     const {stationList, originStation, destinationStation} = this.state;
 
     return(
-      <div>
+      <div onClick = {this.getStations}>
         <StationField
           options = {stationList}
           onChange =  {this.onSelectOrigin}
