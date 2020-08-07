@@ -158,10 +158,13 @@ class App extends Component {
                 >
                 </Schedule>
                 </StationField>
-            </div>,
+            </div>
             <div>
-                <TripReport travelTime = {travelTime}>
-                </TripReport>
+                {
+                    travelTime &&
+                    <TripReport travelTime = {travelTime}>
+                    </TripReport>
+                }
             </div>
         </div>
     )
