@@ -36,3 +36,18 @@
     transform: rotate(360deg);
   }
 }
+
+.left-search {
+  float: left;
+  margin-left: 15%;
+  width: 30%;
+}
+.right-search {
+  float: right;
+  margin-right: 15%;
+  width: 30%;
+}
+
+.arrivals {
+  float: left;
+}
