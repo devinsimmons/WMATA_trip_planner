@@ -1,9 +1,57 @@
 import React from 'react';
-import { render } from '@testing-library/react';
-import App from './App';
+import renderer from 'react-test-renderer';
 
-test('renders learn react link', () => {
-  const { getByText } = render(<App />);
-  const linkElement = getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+import App, {TripReport, Schedule} from './App';
+import './App.css';
+/*import { isTouchCapable } from 'react-select/src/utils';*/
+import Enzyme, {shallow} from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
+
+Enzyme.configure({adapter: new Adapter()});
+
+
+describe('App', () => {
+  test('has a valid snapshot', () => {
+    const component = renderer.create(
+      <App />
+    );
+    let tree = component.toJSON();
+    expect(tree).toMatchSnapshot();
+  });
 });
+
+describe('TripReport', () => {
+  test('has a valid snapshot', () => {
+    const component = renderer.create(
+      <TripReport travelTime = {5}>
+      </TripReport>
+    );
+    let tree = component.toJSON();
+    expect(tree).toMatchSnapshot();
+  });
+});
+
+describe('Schedule', () => {
+  const trainInfo = [{
+    DestinationName: "Friendship Heights",
+    Min: "BRD"
+  }];
+  const testJSX =       
+    <Schedule 
+      classStyle = {'arrivals'}
+      trains = {trainInfo}
+    >
+    </Schedule>
+
+  test('has a valid snapshot', () => {
+    const component = renderer.create(testJSX);
+    let tree = component.toJSON();
+    expect(tree).toMatchSnapshot();
+  });
+
+  it('shows one train arriving', () => {
+    const element = shallow(testJSX);
+    //with one entry, the component should contain two paragraph elements
+    expect(element.find('p').length).toBe(2);
+  });
+})

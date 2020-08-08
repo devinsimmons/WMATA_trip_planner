@@ -49,12 +49,6 @@ class App extends Component {
     });
   }
 
-  //this function looks at the selected stations and determines
-  //if a transfer is required
-  determineIfTransfer() {
-
-  }
-
   //makes an API request to calculate the travel time between stations
   getTravelTime() {
     const {originStation, destinationStation, originStationCode, destinationStationCode} = this.state;
@@ -187,7 +181,7 @@ const StationField = ({classStyle, options, onChange, placeholder, label, childr
 const Schedule = ({classStyle, trains}) => (
   <div className = {classStyle}>
     {trains.map(train => {
-
+        console.log(trains);
       return(
         <div key = {train.LocationCode + train.DestinationCode + train.Min}>
           <p>Destination: {train.DestinationName}</p>
@@ -204,3 +198,10 @@ const TripReport = ({travelTime}) => (
         <p>This trip will take {travelTime} minutes</p>
     </div>
 )
+
+//exporting my components so that I can test them
+export {
+    StationField,
+    Schedule, 
+    TripReport
+};
