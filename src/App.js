@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import Select from 'react-select';
 import logo from './logo.svg';
 import './App.css';
+
 import axios from 'axios';
+import PropTypes from 'prop-types';
 
 const API_KEY = '6351dad7ec9d4c4f9f03bab9b5180c38';
 const STATIONS_LIST = 'https://api.wmata.com/Rail.svc/json/jStations?';
@@ -124,7 +126,7 @@ class App extends Component {
 
     return(
         <div>
-            <div> 
+            <div className = 'schedule-container'> 
                 <StationField 
                 classStyle = {'left-search'}
                 options = {stations}
@@ -153,7 +155,7 @@ class App extends Component {
                 </Schedule>
                 </StationField>
             </div>
-            <div>
+            <div className = 'time-report'>
                 {
                     travelTime &&
                     <TripReport travelTime = {travelTime}>
@@ -191,13 +193,32 @@ const Schedule = ({classStyle, trains}) => (
     })}
   </div>
 );
-export default App;
 
 const TripReport = ({travelTime}) => (
     <div>
         <p>This trip will take {travelTime} minutes</p>
     </div>
-)
+);
+
+TripReport.propTypes = {
+    travelTime: PropTypes.string,
+};
+
+Schedule.propTypes = {
+    classStyle: PropTypes.string,
+    trains: PropTypes.object.isRequired
+};
+
+StationField.propTypes = {
+    classStyle: PropTypes.string, 
+    options: PropTypes.array.isRequired, 
+    onChange: PropTypes.func.isRequired, 
+    placeholder: PropTypes.string, 
+    label: PropTypes.string, 
+    children: PropTypes.element.isRequired
+};
+
+export default App;
 
 //exporting my components so that I can test them
 export {

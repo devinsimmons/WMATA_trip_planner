@@ -51,3 +51,12 @@
 .arrivals {
   float: left;
 }
+
+.schedule-container {
+  display: inline-block;
+  width: 100%;
+}
+
+.time-report {
+  text-align: center;
+}

@@ -21,14 +21,26 @@ describe('App', () => {
 });
 
 describe('TripReport', () => {
+  const testJSX = 
+    <TripReport travelTime = {5}>
+    </TripReport>;
   test('has a valid snapshot', () => {
     const component = renderer.create(
-      <TripReport travelTime = {5}>
-      </TripReport>
+      testJSX
     );
     let tree = component.toJSON();
     expect(tree).toMatchSnapshot();
   });
+
+  it('has one div element', () => {
+    const element = shallow(testJSX);
+    expect(element.find('div').length).toBe(1);
+  }); 
+
+  it('has one div element', () => {
+    const element = shallow(testJSX);
+    expect(element.find('p').length).toBe(1);
+  }); 
 });
 
 describe('Schedule', () => {
@@ -41,7 +53,7 @@ describe('Schedule', () => {
       classStyle = {'arrivals'}
       trains = {trainInfo}
     >
-    </Schedule>
+    </Schedule>;
 
   test('has a valid snapshot', () => {
     const component = renderer.create(testJSX);
